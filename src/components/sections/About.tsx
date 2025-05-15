@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const About = () => {
   const skills = [
@@ -8,8 +8,41 @@ const About = () => {
     'MongoDB', 'PostgreSQL', 'AWS', 'Docker'
   ];
 
+  // Refs for animation elements
+  const sectionRef = useRef<HTMLElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (textRef.current) {
+              textRef.current.classList.add('animate-fade-in-up');
+            }
+            if (imageRef.current) {
+              imageRef.current.classList.add('animate-slide-in-right');
+            }
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <section id="about" className="section-container relative">
+    <section id="about" ref={sectionRef} className="section-container relative">
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-40 right-20 w-64 h-64 bg-highlight/20 rounded-full filter blur-3xl"></div>
       </div>
@@ -19,9 +52,9 @@ const About = () => {
       </h2>
 
       <div className="grid md:grid-cols-3 gap-12 items-center">
-        <div className="md:col-span-2 space-y-5">
+        <div ref={textRef} className="md:col-span-2 space-y-5 opacity-0">
           <p className="text-lg">
-            Hello! My name is John, and I enjoy creating things that live on the internet. 
+            Hello! My name is Faiz, and I enjoy creating things that live on the internet. 
             My interest in web development started back in 2012 when I decided to try editing 
             custom Tumblr themes — turns out hacking together a custom reblog button taught me 
             a lot about HTML & CSS!
@@ -51,11 +84,11 @@ const About = () => {
           </ul>
         </div>
 
-        <div className="relative group">
+        <div ref={imageRef} className="relative group opacity-0">
           <div className="relative rounded-lg overflow-hidden bg-highlight/5 w-full aspect-square">
             <img 
               src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" 
-              alt="John Doe profile" 
+              alt="Faiz Khan profile" 
               className="mix-blend-luminosity grayscale hover:filter-none transition-all duration-500 w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-highlight/10 hover:bg-transparent transition-colors duration-300"></div>

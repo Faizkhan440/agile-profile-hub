@@ -46,7 +46,7 @@ const Navbar = () => {
           duration={500}
           className="text-highlight text-2xl font-mono cursor-pointer relative group"
         >
-          JD
+          FK
           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-highlight transition-all duration-300 group-hover:w-full"></span>
         </Link>
 

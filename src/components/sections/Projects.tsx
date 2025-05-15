@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ExternalLink, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -47,8 +47,36 @@ const Projects = () => {
     }
   ];
 
+  // Animation elements
+  const sectionRef = useRef<HTMLElement>(null);
+  const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fade-in-up');
+            entry.target.classList.remove('opacity-0', 'translate-y-10');
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "-50px 0px" }
+    );
+
+    projectRefs.current.forEach((project) => {
+      if (project) observer.observe(project);
+    });
+
+    return () => {
+      projectRefs.current.forEach((project) => {
+        if (project) observer.unobserve(project);
+      });
+    };
+  }, []);
+
   return (
-    <section id="projects" className="section-container bg-navy-dark relative">
+    <section id="projects" ref={sectionRef} className="section-container bg-navy-dark relative">
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-60 left-10 w-72 h-72 bg-highlight/20 rounded-full filter blur-3xl"></div>
         <div className="absolute bottom-20 right-10 w-72 h-72 bg-highlight/10 rounded-full filter blur-3xl"></div>
@@ -62,7 +90,8 @@ const Projects = () => {
         {projects.map((project, index) => (
           <div 
             key={index}
-            className="relative"
+            className="relative opacity-0 translate-y-10 transition-all duration-700"
+            ref={(el) => (projectRefs.current[index] = el)}
           >
             <div className={`grid md:grid-cols-12 gap-6 items-center ${
               index % 2 === 0 ? '' : 'md:text-right'

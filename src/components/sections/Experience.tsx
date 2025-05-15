@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Briefcase } from 'lucide-react';
 
@@ -58,8 +58,38 @@ const Experience = () => {
     }
   ];
 
+  // Animation elements
+  const sectionRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (contentRef.current) {
+              contentRef.current.classList.add('animate-fade-in-up');
+              contentRef.current.classList.remove('opacity-0', 'translate-y-10');
+            }
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <section id="experience" className="section-container bg-gradient-to-b from-navy to-navy-dark relative">
+    <section id="experience" ref={sectionRef} className="section-container bg-gradient-to-b from-navy to-navy-dark relative">
       <div className="absolute inset-0 opacity-10">
         <div className="absolute bottom-40 left-1/4 w-72 h-72 bg-highlight/20 rounded-full filter blur-3xl"></div>
       </div>
@@ -68,7 +98,7 @@ const Experience = () => {
         <span className="text-highlight font-mono mr-2">03.</span> Where I've Worked
       </h2>
 
-      <div className="max-w-3xl mx-auto">
+      <div ref={contentRef} className="max-w-3xl mx-auto opacity-0 translate-y-10 transition-all duration-700">
         <div className="flex items-center mb-8 text-slate-light">
           <Briefcase className="w-6 h-6 mr-3 text-highlight" />
           <h3 className="text-xl font-medium">Work Experience</h3>
@@ -80,7 +110,7 @@ const Experience = () => {
               <TabsTrigger 
                 key={job.company} 
                 value={job.company}
-                className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-highlight data-[state=active]:text-highlight px-5 py-3 rounded-none font-mono text-sm"
+                className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-highlight data-[state=active]:text-highlight px-5 py-3 rounded-none font-mono text-sm transition-all duration-300"
               >
                 {job.company}
               </TabsTrigger>
