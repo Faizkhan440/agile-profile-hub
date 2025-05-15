@@ -70,7 +70,8 @@ const Achievements = () => {
             if (entry.target === certificationsRef.current) {
               entry.target.classList.add('animate-fade-in-up');
               entry.target.classList.remove('opacity-0', 'translate-y-10');
-              entry.target.style.transitionDelay = '200ms';
+              // Fix: Use data attribute instead of direct style assignment
+              entry.target.setAttribute('data-delay', '200');
             }
           }
         });
@@ -134,7 +135,7 @@ const Achievements = () => {
         
         <div 
           ref={certificationsRef} 
-          className="opacity-0 translate-y-10 transition-all duration-700"
+          className="opacity-0 translate-y-10 transition-all duration-700 delay-200"
         >
           <h3 className="text-slate-light text-xl font-semibold mb-6 flex items-center">
             <FileCheck className="text-highlight mr-3 h-6 w-6" />
