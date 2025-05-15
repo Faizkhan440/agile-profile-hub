@@ -54,18 +54,18 @@ export default {
 					foreground: 'hsl(var(--card-foreground))'
 				},
 				navy: {
-					light: '#1E2A45',
-					DEFAULT: '#0F172A',
-					dark: '#0D1424',
+					light: 'hsl(var(--navy-light))',
+					DEFAULT: 'hsl(var(--navy))',
+					dark: 'hsl(var(--navy-dark))',
 				},
 				slate: {
-					light: '#EDF2F7',
-					DEFAULT: '#A0AEC0',
-					dark: '#4A5568',
+					light: 'hsl(var(--slate-light))',
+					DEFAULT: 'hsl(var(--slate))',
+					dark: 'hsl(var(--slate-dark))',
 				},
 				highlight: {
-					DEFAULT: '#60A5FA',
-					dark: '#3B82F6',
+					DEFAULT: 'hsl(var(--highlight))',
+					dark: 'hsl(var(--highlight-dark))',
 				},
 			},
 			borderRadius: {

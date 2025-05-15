@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-scroll';
-import { Button } from '@/components/ui/button';
 import { Menu, X, FileText } from 'lucide-react';
+import ThemeToggle from '@/components/ThemeToggle';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -36,7 +36,7 @@ const Navbar = () => {
   return (
     <header 
       className={`fixed w-full z-50 transition-all duration-500 ${
-        scrolled ? 'bg-navy/90 backdrop-blur-md shadow-lg py-4' : 'py-6'
+        scrolled ? 'bg-background/90 backdrop-blur-md shadow-lg py-4' : 'py-6'
       }`}
     >
       <div className="max-w-6xl mx-auto px-4 flex justify-between items-center">
@@ -45,24 +45,28 @@ const Navbar = () => {
           spy={true}
           smooth={true}
           duration={500}
-          className="text-highlight text-2xl font-mono cursor-pointer relative group"
+          className="text-accent text-2xl font-mono cursor-pointer relative group"
         >
           FK
-          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-highlight transition-all duration-300 group-hover:w-full"></span>
+          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
         </Link>
 
-        {/* Mobile Menu Button */}
-        <button 
-          className="md:hidden text-slate-light p-2 rounded-md hover:bg-navy-light/50 transition-colors"
-          onClick={toggleMenu}
-          aria-label="Toggle menu"
-        >
-          {menuOpen ? (
-            <X className="h-6 w-6" />
-          ) : (
-            <Menu className="h-6 w-6" />
-          )}
-        </button>
+        {/* Theme Toggle + Mobile Menu Button */}
+        <div className="flex items-center gap-2 md:gap-4">
+          <ThemeToggle />
+          
+          <button 
+            className="md:hidden text-foreground p-2 rounded-md hover:bg-muted/50 transition-colors"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
+          </button>
+        </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center">
@@ -78,7 +82,7 @@ const Navbar = () => {
                   activeClass="active"
                   className="nav-link text-sm"
                 >
-                  <span className="text-highlight font-mono mr-1">0{i + 1}.</span> {item.name}
+                  <span className="text-accent font-mono mr-1">0{i + 1}.</span> {item.name}
                 </Link>
               </li>
             ))}
@@ -96,7 +100,7 @@ const Navbar = () => {
 
         {/* Mobile Navigation */}
         {menuOpen && (
-          <div className="md:hidden fixed inset-0 top-[72px] bg-navy-dark/95 backdrop-blur-lg z-50 flex flex-col justify-center items-center">
+          <div className="md:hidden fixed inset-0 top-[72px] bg-background/95 backdrop-blur-lg z-50 flex flex-col justify-center items-center">
             <nav className="w-full px-12">
               <ol className="flex flex-col space-y-6 items-center">
                 {navItems.map((item, i) => (
@@ -111,7 +115,7 @@ const Navbar = () => {
                       className="nav-link text-lg inline-block py-2"
                       onClick={toggleMenu}
                     >
-                      <span className="text-highlight font-mono mr-2">0{i + 1}.</span> {item.name}
+                      <span className="text-accent font-mono mr-2">0{i + 1}.</span> {item.name}
                     </Link>
                   </li>
                 ))}

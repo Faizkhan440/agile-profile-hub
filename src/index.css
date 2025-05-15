@@ -7,35 +7,91 @@
 
 @layer base {
   :root {
-    --background: 217 33% 17%;
-    --foreground: 210 40% 98%;
-
-    --card: 217 33% 17%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 217 33% 17%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 92% 67%;
-    --primary-foreground: 217 33% 17%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 217 33% 17%;
-
-    --muted: 217 33% 30%;
-    --muted-foreground: 215 20% 80%;
-
-    --accent: 210 92% 67%;
-    --accent-foreground: 217 33% 17%;
-
+    /* Light mode */
+    --background: 210 40% 98%;
+    --foreground: 217 33% 17%;
+    
+    --card: 210 40% 98%;
+    --card-foreground: 217 33% 17%;
+    
+    --popover: 210 40% 98%;
+    --popover-foreground: 217 33% 17%;
+    
+    --primary: 221 83% 53%;
+    --primary-foreground: 210 40% 98%;
+    
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    
+    --muted: 217 33% 90%;
+    --muted-foreground: 215 20% 40%;
+    
+    --accent: 221 83% 53%;
+    --accent-foreground: 210 40% 98%;
+    
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
+    
+    --border: 217 33% 80%;
+    --input: 217 33% 80%;
+    --ring: 221 83% 53%;
+    
+    --radius: 0.75rem;
+    
+    /* Custom light mode colors */
+    --navy-light: 214 38% 95%;
+    --navy: 214 38% 85%;
+    --navy-dark: 214 38% 75%;
+    
+    --slate-light: 217 33% 17%;
+    --slate: 215 20% 40%;
+    --slate-dark: 215 20% 30%;
+    
+    --highlight: 221 83% 53%;
+    --highlight-dark: 221 83% 43%;
+  }
 
+  .dark {
+    /* Dark mode */
+    --background: 217 33% 17%;
+    --foreground: 210 40% 98%;
+    
+    --card: 217 33% 17%;
+    --card-foreground: 210 40% 98%;
+    
+    --popover: 217 33% 17%;
+    --popover-foreground: 210 40% 98%;
+    
+    --primary: 210 92% 67%;
+    --primary-foreground: 217 33% 17%;
+    
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 217 33% 17%;
+    
+    --muted: 217 33% 30%;
+    --muted-foreground: 215 20% 80%;
+    
+    --accent: 210 92% 67%;
+    --accent-foreground: 217 33% 17%;
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    
     --border: 217 33% 30%;
     --input: 217 33% 30%;
     --ring: 210 92% 67%;
-
-    --radius: 0.75rem;
+    
+    /* Custom dark mode colors */
+    --navy-light: 217 33% 30%;
+    --navy: 217 33% 17%;
+    --navy-dark: 217 33% 12%;
+    
+    --slate-light: 210 40% 98%;
+    --slate: 210 40% 80%;
+    --slate-dark: 210 40% 60%;
+    
+    --highlight: 210 92% 67%;
+    --highlight-dark: 210 92% 57%;
   }
 
   html {
@@ -43,7 +99,7 @@
   }
 
   body {
-    @apply bg-navy text-slate-light;
+    @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
@@ -54,23 +110,23 @@
   }
   
   .section-title {
-    @apply text-3xl md:text-4xl font-bold mb-10 text-slate-light flex items-center;
+    @apply text-3xl md:text-4xl font-bold mb-10 text-foreground flex items-center;
   }
   
   .section-title::before {
-    @apply content-[''] mr-3 h-1 w-16 bg-highlight rounded;
+    @apply content-[''] mr-3 h-1 w-16 bg-accent rounded;
   }
   
   .nav-link {
-    @apply relative px-4 py-2 text-slate hover:text-highlight transition-colors duration-300;
+    @apply relative px-4 py-2 text-muted-foreground hover:text-accent transition-colors duration-300;
   }
   
   .nav-link.active {
-    @apply text-highlight;
+    @apply text-accent;
   }
   
   .resume-button {
-    @apply px-4 py-2 border border-highlight text-highlight rounded-md hover:bg-highlight/10 transition-colors duration-300;
+    @apply px-4 py-2 border border-accent text-accent rounded-md hover:bg-accent/10 transition-colors duration-300;
   }
   
   .card-hover {
@@ -84,7 +140,7 @@
   }
   
   .glass-effect {
-    @apply bg-white/5 backdrop-blur-sm border border-white/10;
+    @apply bg-background/5 backdrop-blur-sm border border-border;
   }
 
   /* Additional animation keyframes */
@@ -110,7 +166,7 @@
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: theme('colors.highlight.DEFAULT');
+    background-color: theme('colors.accent.DEFAULT');
     transform: scaleX(0);
     transform-origin: bottom right;
     transition: transform 0.3s ease;
