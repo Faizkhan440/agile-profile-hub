@@ -7,35 +7,35 @@
 
 @layer base {
   :root {
-    --background: 222 47% 11%;
-    --foreground: 214 100% 97%;
+    --background: 217 33% 17%;
+    --foreground: 210 40% 98%;
 
-    --card: 222 47% 11%;
-    --card-foreground: 214 100% 97%;
+    --card: 217 33% 17%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 222 47% 11%;
-    --popover-foreground: 214 100% 97%;
+    --popover: 217 33% 17%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 171 100% 70%;
-    --primary-foreground: 222 47% 11%;
+    --primary: 210 92% 67%;
+    --primary-foreground: 217 33% 17%;
 
     --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary-foreground: 217 33% 17%;
 
     --muted: 217 33% 30%;
-    --muted-foreground: 215.4 16.3% 76.9%;
+    --muted-foreground: 215 20% 80%;
 
-    --accent: 171 100% 70%;
-    --accent-foreground: 222 47% 11%;
+    --accent: 210 92% 67%;
+    --accent-foreground: 217 33% 17%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 217 33% 30%;
     --input: 217 33% 30%;
-    --ring: 171 100% 70%;
+    --ring: 210 92% 67%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
   }
 
   html {
@@ -50,15 +50,15 @@
 
 @layer components {
   .section-container {
-    @apply max-w-4xl mx-auto px-6 py-24 md:py-32;
+    @apply max-w-5xl mx-auto px-6 py-24 md:py-32;
   }
   
   .section-title {
-    @apply text-2xl md:text-3xl font-bold mb-8 text-slate-light flex items-center;
+    @apply text-3xl md:text-4xl font-bold mb-10 text-slate-light flex items-center;
   }
   
   .section-title::before {
-    @apply content-[''] mr-2 h-px w-12 bg-highlight;
+    @apply content-[''] mr-3 h-1 w-16 bg-highlight rounded;
   }
   
   .nav-link {
@@ -70,12 +70,20 @@
   }
   
   .resume-button {
-    @apply px-4 py-2 border border-highlight text-highlight rounded hover:bg-highlight/10 transition-colors duration-300;
+    @apply px-4 py-2 border border-highlight text-highlight rounded-md hover:bg-highlight/10 transition-colors duration-300;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:translate-y-[-5px] hover:shadow-lg;
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  
+  .glass-effect {
+    @apply bg-white/5 backdrop-blur-sm border border-white/10;
   }
 }

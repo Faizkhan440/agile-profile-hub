@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { ExternalLink, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 
@@ -47,89 +48,90 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="section-container">
+    <section id="projects" className="section-container bg-navy-dark relative">
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-60 left-10 w-72 h-72 bg-highlight/20 rounded-full filter blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-72 h-72 bg-highlight/10 rounded-full filter blur-3xl"></div>
+      </div>
+      
       <h2 className="section-title">
         <span className="text-highlight font-mono mr-2">02.</span> Some Things I've Built
       </h2>
       
-      <div className="space-y-24">
+      <div className="space-y-32">
         {projects.map((project, index) => (
           <div 
             key={index}
-            className={`relative grid md:grid-cols-12 gap-4 items-center ${
-              index % 2 === 0 ? '' : 'md:text-right'
-            }`}
+            className="relative"
           >
-            {/* Project Image - Full width overlay on mobile, sided on desktop */}
-            <div 
-              className={`md:col-span-7 md:relative ${
-                index % 2 === 0 ? 'md:col-start-6' : 'md:col-start-1'
-              }`}
-            >
-              <div className="h-full w-full">
-                <div className="relative h-0 pb-[56.25%] overflow-hidden rounded-md">
-                  <img 
-                    src={project.image} 
-                    alt={project.title} 
-                    className="absolute inset-0 w-full h-full object-cover rounded-md transition-all hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-navy/70 hover:bg-navy/40 transition-colors duration-300"></div>
+            <div className={`grid md:grid-cols-12 gap-6 items-center ${
+              index % 2 === 0 ? '' : 'md:text-right'
+            }`}>
+              {/* Project Image */}
+              <div 
+                className={`md:col-span-7 ${
+                  index % 2 === 0 ? 'md:col-start-6' : 'md:col-start-1 order-first'
+                }`}
+              >
+                <div className="card-hover relative overflow-hidden rounded-xl shadow-xl">
+                  <div className="aspect-video">
+                    <img 
+                      src={project.image} 
+                      alt={project.title} 
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-navy/80 hover:bg-navy/50 transition-colors duration-500"></div>
+                  </div>
                 </div>
               </div>
-            </div>
-            
-            {/* Project Content */}
-            <div 
-              className={`md:col-span-6 relative z-10 ${
-                index % 2 === 0 ? 'md:col-start-1 md:text-left' : 'md:col-start-7 md:text-right'
-              }`}
-            >
-              <p className="font-mono text-highlight text-sm mb-1">Featured Project</p>
-              <h3 className="text-2xl font-bold text-slate-light mb-4">
-                {project.title}
-              </h3>
               
-              <div className="bg-navy-light p-6 rounded-md shadow-xl mb-4">
-                <p className="text-slate">{project.description}</p>
-              </div>
-              
-              <ul className={`flex flex-wrap text-sm font-mono mb-8 gap-2 text-slate ${
-                index % 2 === 0 ? '' : 'md:justify-end'
-              }`}>
-                {project.tech.map((tech, i) => (
-                  <li key={i}>{tech}</li>
-                ))}
-              </ul>
-              
-              <div className={`flex gap-4 ${
-                index % 2 === 0 ? '' : 'md:justify-end'
-              }`}>
-                <a 
-                  href={project.github} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-slate-light hover:text-highlight transition-colors duration-300"
-                  aria-label={`GitHub repository for ${project.title}`}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                  </svg>
-                </a>
-                {project.demo && (
+              {/* Project Content */}
+              <div 
+                className={`md:col-span-6 relative z-10 ${
+                  index % 2 === 0 ? 'md:col-start-1 md:text-left' : 'md:col-start-7 md:text-right'
+                }`}
+              >
+                <p className="font-mono text-highlight text-sm mb-2">Featured Project</p>
+                <h3 className="text-2xl font-bold text-slate-light mb-4">
+                  {project.title}
+                </h3>
+                
+                <Card className="bg-navy-light/70 glass-effect mb-5 p-6 shadow-xl">
+                  <p className="text-slate/90">{project.description}</p>
+                </Card>
+                
+                <ul className={`flex flex-wrap text-xs font-mono mb-6 gap-3 text-slate ${
+                  index % 2 === 0 ? '' : 'md:justify-end'
+                }`}>
+                  {project.tech.map((tech, i) => (
+                    <li key={i} className="bg-navy-dark px-3 py-1 rounded">{tech}</li>
+                  ))}
+                </ul>
+                
+                <div className={`flex gap-4 ${
+                  index % 2 === 0 ? '' : 'md:justify-end'
+                }`}>
                   <a 
-                    href={project.demo} 
+                    href={project.github} 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="text-slate-light hover:text-highlight transition-colors duration-300"
-                    aria-label={`Live demo for ${project.title}`}
+                    aria-label={`GitHub repository for ${project.title}`}
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                      <polyline points="15 3 21 3 21 9"></polyline>
-                      <line x1="10" y1="14" x2="21" y2="3"></line>
-                    </svg>
+                    <Github size={20} />
                   </a>
-                )}
+                  {project.demo && (
+                    <a 
+                      href={project.demo} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-slate-light hover:text-highlight transition-colors duration-300"
+                      aria-label={`Live demo for ${project.title}`}
+                    >
+                      <ExternalLink size={20} />
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           </div>

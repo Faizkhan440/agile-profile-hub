@@ -1,6 +1,7 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Briefcase } from 'lucide-react';
 
 interface Job {
   company: string;
@@ -58,46 +59,58 @@ const Experience = () => {
   ];
 
   return (
-    <section id="experience" className="section-container">
+    <section id="experience" className="section-container bg-gradient-to-b from-navy to-navy-dark relative">
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute bottom-40 left-1/4 w-72 h-72 bg-highlight/20 rounded-full filter blur-3xl"></div>
+      </div>
+      
       <h2 className="section-title">
         <span className="text-highlight font-mono mr-2">03.</span> Where I've Worked
       </h2>
 
-      <Tabs defaultValue={jobs[0].company} className="max-w-2xl mx-auto">
-        <TabsList className="mb-8 flex flex-wrap bg-transparent h-auto p-0 border-b border-muted space-x-2">
+      <div className="max-w-3xl mx-auto">
+        <div className="flex items-center mb-8 text-slate-light">
+          <Briefcase className="w-6 h-6 mr-3 text-highlight" />
+          <h3 className="text-xl font-medium">Work Experience</h3>
+        </div>
+        
+        <Tabs defaultValue={jobs[0].company} className="w-full">
+          <TabsList className="mb-8 flex flex-wrap bg-transparent h-auto p-0 border-b border-muted space-x-0">
+            {jobs.map((job) => (
+              <TabsTrigger 
+                key={job.company} 
+                value={job.company}
+                className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-highlight data-[state=active]:text-highlight px-5 py-3 rounded-none font-mono text-sm"
+              >
+                {job.company}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          
           {jobs.map((job) => (
-            <TabsTrigger 
+            <TabsContent 
               key={job.company} 
               value={job.company}
-              className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-highlight data-[state=active]:text-highlight px-4 py-2 rounded-none font-mono"
+              className="animate-fade-in-up bg-navy-light/30 glass-effect rounded-lg p-6 shadow-lg"
             >
-              {job.company}
-            </TabsTrigger>
+              <div>
+                <h3 className="text-xl text-slate-light mb-1">
+                  {job.title} <span className="text-highlight">@ {job.company}</span>
+                </h3>
+                <p className="font-mono text-sm text-slate mb-6">{job.period}</p>
+                <ul className="space-y-4">
+                  {job.responsibilities.map((resp, i) => (
+                    <li key={i} className="flex">
+                      <span className="text-highlight mr-3 flex-shrink-0">▹</span>
+                      <span className="text-slate/90">{resp}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </TabsContent>
           ))}
-        </TabsList>
-        {jobs.map((job) => (
-          <TabsContent 
-            key={job.company} 
-            value={job.company}
-            className="animate-fade-in-up"
-          >
-            <div>
-              <h3 className="text-xl text-slate-light mb-1">
-                {job.title} <span className="text-highlight">@ {job.company}</span>
-              </h3>
-              <p className="font-mono text-sm text-slate mb-6">{job.period}</p>
-              <ul className="space-y-4">
-                {job.responsibilities.map((resp, i) => (
-                  <li key={i} className="flex">
-                    <span className="text-highlight mr-2 flex-shrink-0">▹</span>
-                    <span>{resp}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </TabsContent>
-        ))}
-      </Tabs>
+        </Tabs>
+      </div>
     </section>
   );
 };
